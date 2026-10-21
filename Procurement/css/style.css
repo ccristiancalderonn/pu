@@ -89,6 +89,11 @@ img {
   margin-right: 0;
   color: inherit;
 }
+#topbar .tsoc .top-social-placeholder svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
 #topbar .tsoc a:hover {
   background: var(--primary);
   color: #fff;
@@ -1368,6 +1373,11 @@ footer {
   align-items: center;
   justify-content: center;
   cursor: default;
+}
+.fsoc .footer-social-placeholder svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
 }
 .ftit {
   color: #fff;

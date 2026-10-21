@@ -4,7 +4,7 @@ AOS.init({
     offset: 55
 });
 
-function initializeTeamSlider(selector, paginationSelector) {
+function initializeTeamSlider(selector, paginationSelector, paginationType) {
     new Swiper(selector, {
         slidesPerView: 1,
         spaceBetween: 18,
@@ -16,7 +16,9 @@ function initializeTeamSlider(selector, paginationSelector) {
         },
         pagination: {
             el: paginationSelector,
-            clickable: true
+            clickable: true,
+            type: 'bullets',
+            dynamicBullets: paginationType === 'dynamic'
         },
         breakpoints: {
             576: {
@@ -29,7 +31,7 @@ function initializeTeamSlider(selector, paginationSelector) {
     });
 }
 
-initializeTeamSlider('.mainTeamSwiper', '.team-pagination');
+initializeTeamSlider('.mainTeamSwiper', '.team-pagination', 'dynamic');
 
 var endUserTeamWrapper = document.querySelector('.endUserSwiper .swiper-wrapper');
 for (var teamNumber = 1; teamNumber <= 24; teamNumber++) {
@@ -40,7 +42,7 @@ for (var teamNumber = 1; teamNumber <= 24; teamNumber++) {
     endUserTeamWrapper.appendChild(slide);
 }
 
-initializeTeamSlider('.endUserSwiper', '.end-user-pagination');
+initializeTeamSlider('.endUserSwiper', '.end-user-pagination', 'dynamic');
 
 /* NAVBAR SCROLL & ACTIVE LINK  */
 window.addEventListener('scroll', function() {
