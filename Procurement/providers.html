@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="author" content="Procurement Unit">
+      <meta name="description" content="Provider directory for the DepEd NCR Procurement Unit.">
+      <title>Provider Directory | Procurement Unit</title>
+      <link rel="icon" type="image/png" href="img/pucircle.png">
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"/>
+      <link href="css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="css/aos.css" rel="stylesheet"/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+      <link rel="stylesheet" href="css/style.css"/>
+   </head>
+   <body>
+      <div id="topbar">
+         <div class="container">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+               <div class="top-contact d-flex flex-wrap">
+                  <span><i class="bi bi-telephone-fill"></i>02 - 8709 - 8272</span>
+                  <span><i class="bi bi-envelope-fill"></i>procurement.ncr@deped.gov.ph</span>
+                  <span><i class="bi bi-geo-alt-fill"></i>6 Misamis Street, Bago Bantay, 1105 Quezon City, Philippines</span>
+               </div>
+               <span class="ttag"><i class="bi bi-card-checklist me-1" style="color: rgba(255, 255, 255, 0.329);"></i>Procurement Services</span>
+            </div>
+         </div>
+      </div>
+      <nav class="navbar navbar-expand-lg" id="nav">
+         <div class="container">
+            <a class="navbar-brand" href="index.html">
+               <div class="blogo">
+                  <img class="bico" src="img/pulogo.png" alt="Procurement Unit logo"/>
+                  <div class="bname">Procurement Unit</div>
+               </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="bi bi-list" style="color:var(--primary);font-size:1.35rem;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+               <ul class="navbar-nav mx-auto">
+                  <li class="nav-item"><a class="nav-link" href="index.html#hero">Home</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="providers.html" aria-current="page">Providers</a></li>
+                  <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="index.html#calendar">Calendar</a></li>
+               </ul>
+               <a href="index.html#category" class="nav-link nav-cta"><i class="bi bi-arrow-left me-1"></i>Back to Home</a>
+            </div>
+         </div>
+      </nav>
+      <main>
+         <section id="providers">
+            <div class="container">
+               <div class="text-center mb-5" data-aos="fade-up">
+                  <span class="slbl">Provider Directory</span>
+                  <h1 class="stitle">Registered <span>Providers</span></h1>
+                  <div class="sline"></div>
+                  <p class="sdesc mx-auto" style="max-width:560px;">Browse providers by category. Listings are loaded from the provider registry when you visit this page.</p>
+               </div>
+               <form class="provider-search-form" id="providerSearchForm" role="search">
+                  <label class="visually-hidden" for="providerSearch">Search providers</label>
+                  <input class="form-control" id="providerSearch" type="search" placeholder="Search providers or categories..." autocomplete="off"/>
+                  <button class="btn-red" type="submit"><i class="bi bi-search me-1" aria-hidden="true"></i>Search</button>
+               </form>
+               <div class="text-center mb-4" data-aos="fade-up" aria-label="Filter providers by category">
+                  <button class="provider-filter active" type="button" data-provider-filter="all" aria-pressed="true">All Providers</button>
+                  <button class="provider-filter" type="button" data-provider-filter="sales-services" aria-pressed="false">Sales &amp; Services</button>
+                  <button class="provider-filter" type="button" data-provider-filter="materials-equipment" aria-pressed="false">Materials &amp; Equipments</button>
+                  <button class="provider-filter" type="button" data-provider-filter="board-lodging" aria-pressed="false">Board &amp; Lodging</button>
+                  <button class="provider-filter" type="button" data-provider-filter="catering-services" aria-pressed="false">Catering Services</button>
+               </div>
+               <p class="provider-load-status" id="providerLoadStatus" role="status" aria-live="polite">Loading provider listings...</p>
+               <div class="provider-load-error d-none" id="providerLoadError" role="alert">
+                  <p>Provider listings could not be loaded. Check your connection and try again.</p>
+                  <button class="btn-red" id="providerRetry" type="button">Try again</button>
+               </div>
+               <div class="row g-2" id="providerGrid">
+               </div>
+               <p class="provider-empty d-none" id="providerEmpty" role="status" aria-live="polite">No providers match your search.</p>
+            </div>
+         </section>
+      </main>
+      <footer class="provider-directory-footer">
+         <div class="container">
+            <div class="row g-5">
+               <div class="col-lg-4">
+                  <div class="fnm">Procurement <span>Unit</span></div>
+                  <p class="fdesc">We support the DepEd NCR Regional Office through transparent, timely, and accountable procurement of goods and services.</p>
+                  <div class="fsoc">
+                     <a href="#"><i class="bi bi-facebook"></i></a>
+                     <a href="#"><i class="bi bi-instagram"></i></a>
+                     <a href="#"><i class="bi bi-twitter"></i></a>
+                     <a href="#"><i class="bi bi-youtube"></i></a>
+                     <a href="#"><i class="bi bi-tiktok"></i></a>
+                  </div>
+               </div>
+               <div class="col-sm-6 col-lg-4">
+                  <div class="ftit">Quick Links</div>
+                  <ul class="flinks ps-0">
+                     <li><a href="index.html#hero"><i class="bi bi-chevron-right"></i>Home</a></li>
+                     <li><a href="index.html#about"><i class="bi bi-chevron-right"></i>About Us</a></li>
+                     <li><a href="providers.html"><i class="bi bi-chevron-right"></i>Providers</a></li>
+                     <li><a href="index.html#blog"><i class="bi bi-chevron-right"></i>Blog</a></li>
+                  </ul>
+               </div>
+               <div class="col-sm-6 col-lg-4">
+                  <div class="ftit">Provider Categories</div>
+                  <ul class="flinks ps-0">
+                     <li><a href="providers.html?category=sales-services"><i class="bi bi-chevron-right"></i>Sales &amp; Services</a></li>
+                     <li><a href="providers.html?category=materials-equipment"><i class="bi bi-chevron-right"></i>Materials &amp; Equipments</a></li>
+                     <li><a href="providers.html?category=board-lodging"><i class="bi bi-chevron-right"></i>Board &amp; Lodging</a></li>
+                     <li><a href="providers.html?category=catering-services"><i class="bi bi-chevron-right"></i>Catering Services</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="fbot">
+            <div class="container">
+               <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                  <p>&copy 2026 <span>Procurement Unit</span>. All Rights Reserved. <span><i class="bi bi-heart-fill"></i></span></p>
+                  <div><a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <button id="btt" type="button" aria-label="Back to top"><i class="bi bi-chevron-up" aria-hidden="true"></i></button>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/aos.js"></script>
+      <script src="js/providers.js"></script>
+   </body>
+</html>

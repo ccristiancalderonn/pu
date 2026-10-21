@@ -73,33 +73,23 @@ function closeSearch() {
     document.body.style.overflow = '';
 }
 
-// Category buttons inside search box
+function openProviderDirectory(category, query) {
+    var url = new URL('providers.html', window.location.href);
+    url.searchParams.set('category', category || 'all');
+    if (query) url.searchParams.set('q', query);
+    window.location.href = url.toString();
+}
+
 document.querySelectorAll('.sovcat').forEach(function(btn) {
     btn.addEventListener('click', function() {
-        document.querySelectorAll('.sovcat').forEach(function(b) {
-            b.classList.remove('active');
-        });
-        this.classList.add('active');
-        var f = this.getAttribute('data-cat');
-        closeSearch();
-        setTimeout(function() {
-            filterMenu(f);
-            document.getElementById('menu').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 300);
+        openProviderDirectory(this.getAttribute('data-cat'), '');
     });
 });
 
-// Trending tags fill the search input
-document.querySelectorAll('.sovtrend .ttag').forEach(function(t) {
-    t.addEventListener('click', function() {
-        document.getElementById('searchInput').value = this.textContent.trim();
-        document.getElementById('searchInput').focus();
-    });
+document.getElementById('providerSearchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    openProviderDirectory('all', document.getElementById('searchInput').value.trim());
 });
-
 
 $(document).ready(function() {
 	$('.magnific_popup').magnificPopup({
@@ -111,199 +101,6 @@ $(document).ready(function() {
 	  fixedContentPos: false,
 	  disableOn: 300
 	});	
-});
-
-
-function filterMenu(cat) {
-    // sync filter buttons
-    document.querySelectorAll('.filtbtn').forEach(function(b) {
-        b.classList.toggle('active', b.getAttribute('data-f') === cat);
-    });
-    // sync category cards
-    document.querySelectorAll('.catcard').forEach(function(c) {
-        c.classList.toggle('active', c.getAttribute('data-filter') === cat);
-    });
-    // show/hide menu cards
-    document.querySelectorAll('.mwrap').forEach(function(w) {
-        var c = w.getAttribute('data-c');
-        if (cat === 'all' || c === cat) {
-            w.classList.remove('gone');
-            w.style.opacity = '0';
-            w.style.transform = 'translateY(16px)';
-            setTimeout(function() {
-                w.style.transition = 'opacity .38s,transform .38s';
-                w.style.opacity = '1';
-                w.style.transform = 'translateY(0)';
-            }, 60);
-        } else {
-            w.classList.add('gone');
-        }
-    });
-}
-
-// Filter buttons
-document.querySelectorAll('.filtbtn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        filterMenu(this.getAttribute('data-f'));
-    });
-});
-
-// Category section cards â†’ scroll + filter
-document.querySelectorAll('.catcard').forEach(function(card) {
-    card.addEventListener('click', function() {
-        var f = this.getAttribute('data-filter');
-        window.scrollTo({
-            top: document.getElementById('menu').offsetTop - 80,
-            behavior: 'smooth'
-        });
-        setTimeout(function() {
-            filterMenu(f);
-        }, 480);
-    });
-});
-
-
-var menuPop = document.getElementById('menuPop');
-var mpQty = 1;
-
-function openMenuPop(card) {
-    var img = card.getAttribute('data-img');
-    var title = card.getAttribute('data-title');
-    var cat = card.getAttribute('data-cat');
-    var price = card.getAttribute('data-price');
-    var old = card.getAttribute('data-old');
-    var rating = parseFloat(card.getAttribute('data-rating'));
-    var reviews = card.getAttribute('data-reviews');
-    var cal = card.getAttribute('data-cal');
-    var time = card.getAttribute('data-time');
-    var desc = card.getAttribute('data-desc');
-    var tags = card.getAttribute('data-tags') || '';
-
-    document.getElementById('mpImg').setAttribute('src', img);
-    document.getElementById('mpCat').textContent = cat;
-    document.getElementById('mpTitle').textContent = title;
-
-    var full = Math.round(rating),
-        empty = 5 - full;
-    document.getElementById('mpStars').innerHTML =
-        '<i class="bi bi-star-fill"></i>'.repeat(full) + '&#9734;'.repeat(empty) +
-        ' <span style="color:#bbb;font-size:.78rem;">' + rating + ' (' + reviews + ' reviews)</span>';
-
-    document.getElementById('mpDesc').textContent = desc;
-
-    document.getElementById('mpPrice').innerHTML =
-        price + (old ? '<small style="color:#ccc;text-decoration:line-through;margin-left:8px;font-size:1rem;">' + old + '</small>' : '');
-
-    document.getElementById('mpMeta').innerHTML =
-        '<div class="mpm"><div class="mpmv">' + cal + ' kcal</div><div class="mpml">Calories</div></div>' +
-        '<div class="mpm"><div class="mpmv">' + time + ' min</div><div class="mpml">Prep Time</div></div>' +
-        '<div class="mpm"><div class="mpmv">' + rating + '/5</div><div class="mpml">Rating</div></div>';
-
-    document.getElementById('mpTags').innerHTML =
-        tags.split(',').filter(Boolean).map(function(t) {
-            return '<span class="mptag">' + t.trim() + '</span>';
-        }).join('');
-
-    mpQty = 1;
-    document.getElementById('mpQnum').textContent = 1;
-    document.getElementById('mpAddCart').innerHTML = '<i class="bi bi-cart-fill"></i> Add to Cart';
-    document.getElementById('mpAddCart').style.background = '';
-
-    menuPop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-// Card click open popup
-document.querySelectorAll('.mcard').forEach(function(card) {
-    card.addEventListener('click', function() {
-        openMenuPop(this);
-    });
-});
-
-// + button  open popup (stop propagation to avoid double firing)
-document.querySelectorAll('.madd').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        openMenuPop(this.closest('.mcard'));
-    });
-});
-
-// Heart toggle (no popup)
-document.querySelectorAll('.mhrt').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var ico = this.querySelector('i');
-        ico.classList.toggle('bi-heart');
-        ico.classList.toggle('bi-heart-fill');
-        this.style.color = ico.classList.contains('bi-heart-fill') ? 'var(--primary)' : '#ccc';
-    });
-});
-
-// Close popup
-document.getElementById('mpClose').addEventListener('click', closeMenuPop);
-menuPop.addEventListener('click', function(e) {
-    if (e.target === this) closeMenuPop();
-});
-
-function closeMenuPop() {
-    menuPop.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-// Qty +/-
-document.getElementById('mpPlus').addEventListener('click', function() {
-    document.getElementById('mpQnum').textContent = ++mpQty;
-});
-document.getElementById('mpMinus').addEventListener('click', function() {
-    if (mpQty > 1) document.getElementById('mpQnum').textContent = --mpQty;
-});
-
-// Add to cart button
-document.getElementById('mpAddCart').addEventListener('click', function() {
-    var cnt = parseInt(document.getElementById('cartCount').textContent) + mpQty;
-    document.getElementById('cartCount').textContent = cnt;
-    this.innerHTML = '<i class="bi bi-check-lg"></i> Added to Cart!';
-    this.style.background = 'linear-gradient(135deg,var(--green),#1a4a35)';
-    var self = this;
-    setTimeout(function() {
-        closeMenuPop();
-        self.innerHTML = '<i class="bi bi-cart-fill"></i> Add to Cart';
-        self.style.background = '';
-    }, 1000);
-});
-
-
-document.getElementById('resBtn').addEventListener('click', function() {
-    var btn = this;
-    btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Booking...';
-    btn.disabled = true;
-    setTimeout(function() {
-        btn.innerHTML = '<i class="bi bi-calendar-check-fill"></i> Confirm Reservation';
-        btn.disabled = false;
-        var ok = document.getElementById('resOk');
-        ok.style.display = 'block';
-        ok.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest'
-        });
-    }, 1500);
-});
-
-
-document.getElementById('ctcBtn').addEventListener('click', function() {
-    var btn = this;
-    btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Sending...';
-    btn.disabled = true;
-    setTimeout(function() {
-        btn.innerHTML = '<i class="bi bi-send-fill"></i> Send Message';
-        btn.disabled = false;
-        var ok = document.getElementById('ctcOk');
-        ok.style.display = 'block';
-        ok.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest'
-        });
-    }, 1500);
 });
 
 
@@ -353,7 +150,6 @@ document.getElementById('gpNext').addEventListener('click', function() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeSearch();
-        closeMenuPop();
         closeGal();
         if (typeof $.magnificPopup !== 'undefined') $.magnificPopup.close();
     }
@@ -383,28 +179,100 @@ new Swiper('.tesSwiper', {
 });
 
 
-var cH = 8,
-    cM = 45,
-    cS = 30;
-setInterval(function() {
-    cS--;
-    if (cS < 0) {
-        cS = 59;
-        cM--;
+var calendarMonthFormatter = new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'UTC'
+    }),
+    calendarDateFormatter = new Intl.DateTimeFormat('en-US', {
+        dateStyle: 'full',
+        timeZone: 'UTC'
+    });
+
+function getManilaDateParts() {
+    var parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Manila',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+    }).formatToParts(new Date());
+    var values = {};
+
+    parts.forEach(function(part) {
+        if (part.type !== 'literal') values[part.type] = Number(part.value);
+    });
+
+    return {
+        year: values.year,
+        month: values.month,
+        day: values.day
+    };
+}
+
+var currentManilaDate = getManilaDateParts(),
+    calendarYear = currentManilaDate.year,
+    calendarMonth = currentManilaDate.month;
+
+function renderCalendar() {
+    var today = getManilaDateParts(),
+        monthStart = new Date(Date.UTC(calendarYear, calendarMonth - 1, 1)),
+        firstWeekday = monthStart.getUTCDay(),
+        daysInMonth = new Date(Date.UTC(calendarYear, calendarMonth, 0)).getUTCDate(),
+        weekCount = Math.ceil((firstWeekday + daysInMonth) / 7),
+        calendarDays = document.getElementById('calendarDays'),
+        todayDate = new Date(Date.UTC(today.year, today.month - 1, today.day));
+
+    document.getElementById('calendarMonth').textContent = calendarMonthFormatter.format(monthStart);
+    document.getElementById('calendarToday').textContent = 'Today: ' + calendarDateFormatter.format(todayDate);
+    calendarDays.textContent = '';
+
+    for (var week = 0; week < weekCount; week++) {
+        var row = document.createElement('tr');
+
+        for (var weekday = 0; weekday < 7; weekday++) {
+            var day = week * 7 + weekday - firstWeekday + 1,
+                cell = document.createElement('td');
+
+            if (day < 1 || day > daysInMonth) {
+                cell.className = 'calendar-outside-month';
+                cell.setAttribute('aria-hidden', 'true');
+            } else {
+                cell.textContent = String(day);
+                if (calendarYear === today.year && calendarMonth === today.month && day === today.day) {
+                    cell.setAttribute('aria-current', 'date');
+                    cell.setAttribute('aria-label', 'Today, ' + calendarDateFormatter.format(todayDate));
+                }
+            }
+
+            row.appendChild(cell);
+        }
+
+        calendarDays.appendChild(row);
     }
-    if (cM < 0) {
-        cM = 59;
-        cH--;
-    }
-    if (cH < 0) {
-        cH = 8;
-        cM = 45;
-        cS = 30;
-    }
-    document.getElementById('cdH').textContent = String(cH).padStart(2, '0');
-    document.getElementById('cdM').textContent = String(cM).padStart(2, '0');
-    document.getElementById('cdS').textContent = String(cS).padStart(2, '0');
-}, 1000);
+}
+
+function changeCalendarMonth(amount) {
+    var newMonth = new Date(Date.UTC(calendarYear, calendarMonth - 1 + amount, 1));
+    calendarYear = newMonth.getUTCFullYear();
+    calendarMonth = newMonth.getUTCMonth() + 1;
+    renderCalendar();
+}
+
+document.getElementById('calendarPrev').addEventListener('click', function() {
+    changeCalendarMonth(-1);
+});
+document.getElementById('calendarNext').addEventListener('click', function() {
+    changeCalendarMonth(1);
+});
+document.getElementById('calendarTodayButton').addEventListener('click', function() {
+    var today = getManilaDateParts();
+    calendarYear = today.year;
+    calendarMonth = today.month;
+    renderCalendar();
+});
+
+renderCalendar();
+setInterval(renderCalendar, 60000);
 
 /* â”€â”€ NEWSLETTER â”€â”€ */
 document.getElementById('nlBtn').addEventListener('click', function() {
