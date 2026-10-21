@@ -63,7 +63,8 @@ img {
 #topbar .top-contact span i {
   color: rgba(255, 255, 255, 0.45);
 }
-#topbar .tsoc a {
+#topbar .tsoc a,
+#topbar .tsoc .top-social-placeholder {
   width: 27px;
   height: 27px;
   border-radius: 50%;
@@ -76,7 +77,23 @@ img {
   margin-left: 5px;
   transition: 0.3s;
 }
+#topbar .tsoc .top-social-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0;
+  color: #bbb;
+  font-size: 0.75rem;
+}
+#topbar .tsoc .top-social-placeholder i {
+  margin-right: 0;
+  color: inherit;
+}
 #topbar .tsoc a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+#topbar .tsoc .top-social-placeholder:hover {
   background: var(--primary);
   color: #fff;
 }
@@ -1209,8 +1226,11 @@ section {
 #team {
   background: #fff;
 }
-.team-group + .team-group {
-  margin-top: 48px;
+.teamSwiper {
+  padding: 4px 4px 42px;
+}
+.end-user-team-group {
+  margin-top: 42px;
 }
 .team-group-heading {
   display: flex;
@@ -1233,9 +1253,6 @@ section {
 .team-group-heading > i {
   color: var(--primary);
   font-size: 1.35rem;
-}
-.teamSwiper {
-  padding: 4px 4px 42px;
 }
 .team-card {
   height: 100%;
@@ -1277,15 +1294,21 @@ section {
   letter-spacing: 0.8px;
 }
 .team-card-body h4 {
-  margin: 0 0 5px;
+  min-height: 2.6em;
+  margin: 0 0 10px;
   color: var(--dark);
   font-size: 1rem;
   font-weight: 700;
 }
-.team-card-body p {
+.team-roles {
+  display: grid;
+  gap: 5px;
+}
+.team-roles p {
   margin: 0;
   color: #777;
   font-size: 0.78rem;
+  line-height: 1.45;
 }
 .teamSwiper .swiper-pagination-bullet {
   background: var(--primary);
@@ -1321,7 +1344,8 @@ footer {
   gap: 9px;
   margin-top: 18px;
 }
-.fsoc a {
+.fsoc a,
+.fsoc .footer-social-placeholder {
   width: 36px;
   height: 36px;
   border-radius: 9px;
@@ -1333,10 +1357,17 @@ footer {
   font-size: 0.88rem;
   transition: 0.3s;
 }
-.fsoc a:hover {
+.fsoc a:hover,
+.fsoc .footer-social-placeholder:hover {
   background: var(--primary);
   color: #fff;
   transform: translateY(-3px);
+}
+.fsoc .footer-social-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
 }
 .ftit {
   color: #fff;
@@ -1543,7 +1574,7 @@ footer {
   transition: 0.3s;
 }
 .sovinput button:hover {
-  background: #6a9ba9;
+  background: var(--primary);
 }
 .sovcats {
   display: flex;

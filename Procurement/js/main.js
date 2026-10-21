@@ -29,8 +29,18 @@ function initializeTeamSlider(selector, paginationSelector) {
     });
 }
 
-initializeTeamSlider('.bacSwiper', '.bac-pagination');
-initializeTeamSlider('.twgSwiper', '.twg-pagination');
+initializeTeamSlider('.mainTeamSwiper', '.team-pagination');
+
+var endUserTeamWrapper = document.querySelector('.endUserSwiper .swiper-wrapper');
+for (var teamNumber = 1; teamNumber <= 24; teamNumber++) {
+    var slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    slide.innerHTML = '<article class="team-card"><div class="team-avatar"><i class="bi bi-people-fill" aria-hidden="true"></i></div><div class="team-card-body"><span class="team-label">End-User</span><h4></h4><div class="team-roles"><p>Temporary team profile</p></div></div></article>';
+    slide.querySelector('h4').textContent = 'End-User Team ' + teamNumber;
+    endUserTeamWrapper.appendChild(slide);
+}
+
+initializeTeamSlider('.endUserSwiper', '.end-user-pagination');
 
 /* NAVBAR SCROLL & ACTIVE LINK  */
 window.addEventListener('scroll', function() {
