@@ -63,6 +63,12 @@ img {
 #topbar .top-contact span i {
   color: rgba(255, 255, 255, 0.45);
 }
+#topbar .top-contact a {
+  color: inherit;
+}
+#topbar .top-contact a:hover {
+  color: var(--secondary);
+}
 #topbar .tsoc a,
 #topbar .tsoc .top-social-placeholder {
   width: 27px;
@@ -1216,6 +1222,34 @@ section {
   margin: 0;
   font-size: 0.9rem;
 }
+.procurement-faq {
+  max-width: 860px;
+  margin: 0 auto;
+  --bs-accordion-border-color: rgba(106, 155, 169, 0.16);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(106, 155, 169, 0.16);
+  --bs-accordion-active-bg: #fff;
+  --bs-accordion-active-color: var(--dark);
+}
+.procurement-faq .accordion-item {
+  overflow: hidden;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.procurement-faq .accordion-button {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.procurement-faq .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+.procurement-faq .accordion-body {
+  color: #777;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
 @media (max-width: 767px) {
   .required-documents {
     grid-template-columns: minmax(0, 1fr);
@@ -1343,6 +1377,36 @@ footer {
   font-size: 0.86rem;
   line-height: 1.8;
   margin-top: 9px;
+}
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 18px;
+  color: #777;
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+.footer-contact-list i {
+  color: var(--primary);
+  width: 14px;
+  text-align: center;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.footer-contact-list a {
+  color: inherit;
+}
+.footer-contact-list a:hover {
+  color: var(--secondary);
 }
 .fsoc {
   display: flex;

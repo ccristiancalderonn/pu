@@ -33,13 +33,42 @@ function initializeTeamSlider(selector, paginationSelector, paginationType) {
 
 initializeTeamSlider('.mainTeamSwiper', '.team-pagination', 'dynamic');
 
+var endUserTeams = [
+    { code: 'ORD', name: 'Office of the Regional Director', icon: 'bi-building' },
+    { code: 'OARD', name: 'Office of the Assistant Regional Director', icon: 'bi-person-badge' },
+    { code: 'ASD', name: 'Administrative Division', icon: 'bi-gear-wide-connected' },
+    { code: 'CLMD', name: 'Curriculum & Learning Management Division', icon: 'bi-journal-bookmark-fill' },
+    { code: 'HRDD', name: 'Human Resource Development Division', icon: 'bi-person-gear' },
+    { code: 'ESSD', name: 'Education Support Services Division', icon: 'bi-life-preserver' },
+    { code: 'PPRD', name: 'Policy, Planning, & Research Division', icon: 'bi-bar-chart-line-fill' },
+    { code: 'QAD', name: 'Quality Assurance Division', icon: 'bi-clipboard2-check-fill' },
+    { code: 'FD', name: 'Finance Division', icon: 'bi-cash-stack' },
+    { code: 'FTAD', name: 'Field Technical Assistance Division', icon: 'bi-tools' },
+    { code: 'LU', name: 'Legal Unit', icon: 'bi-journal-text' },
+    { code: 'ICTU', name: 'Information and Communications Technology Unit', icon: 'bi-laptop' },
+    { code: 'PAU', name: 'Public Affairs Unit', icon: 'bi-megaphone-fill' },
+    { code: 'PS', name: 'Personnel Section', icon: 'bi-person-lines-fill' },
+    { code: 'CS', name: 'Cash Section', icon: 'bi-coin' },
+    { code: 'RS', name: 'Records Section', icon: 'bi-archive-fill' },
+    { code: 'AMS', name: 'Asset Management Section', icon: 'bi-boxes' },
+    { code: 'GSU', name: 'General Service Unit', icon: 'bi-wrench-adjustable' },
+    { code: 'LRMS', name: 'Learning Resource Management Section', icon: 'bi-book-half' },
+    { code: 'LRPS', name: 'Learner Rights & Protection Section', icon: 'bi-shield-check' },
+    { code: 'SHNU', name: 'School Health & Nutrition Unit', icon: 'bi-heart-pulse-fill' },
+    { code: 'RPSU', name: 'Regional Payroll Services Unit', icon: 'bi-calculator-fill' }
+];
+
 var endUserTeamWrapper = document.querySelector('.endUserSwiper .swiper-wrapper');
-for (var teamNumber = 1; teamNumber <= 24; teamNumber++) {
-    var slide = document.createElement('div');
-    slide.className = 'swiper-slide';
-    slide.innerHTML = '<article class="team-card"><div class="team-avatar"><i class="bi bi-people-fill" aria-hidden="true"></i></div><div class="team-card-body"><span class="team-label">End-User</span><h4></h4><div class="team-roles"><p>Temporary team profile</p></div></div></article>';
-    slide.querySelector('h4').textContent = 'End-User Team ' + teamNumber;
-    endUserTeamWrapper.appendChild(slide);
+if (endUserTeamWrapper) {
+    endUserTeams.forEach(function(team) {
+        var slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = '<article class="team-card"><div class="team-avatar"><i aria-hidden="true"></i></div><div class="team-card-body"><span class="team-label"></span><h4></h4></div></article>';
+        slide.querySelector('.team-avatar i').className = 'bi ' + team.icon;
+        slide.querySelector('.team-label').textContent = team.code;
+        slide.querySelector('h4').textContent = team.name;
+        endUserTeamWrapper.appendChild(slide);
+    });
 }
 
 initializeTeamSlider('.endUserSwiper', '.end-user-pagination', 'dynamic');
