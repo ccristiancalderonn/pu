@@ -4,6 +4,34 @@ AOS.init({
     offset: 55
 });
 
+function initializeTeamSlider(selector, paginationSelector) {
+    new Swiper(selector, {
+        slidesPerView: 1,
+        spaceBetween: 18,
+        loop: true,
+        autoplay: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        pagination: {
+            el: paginationSelector,
+            clickable: true
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2
+            },
+            992: {
+                slidesPerView: 3
+            }
+        }
+    });
+}
+
+initializeTeamSlider('.bacSwiper', '.bac-pagination');
+initializeTeamSlider('.twgSwiper', '.twg-pagination');
+
 /* NAVBAR SCROLL & ACTIVE LINK  */
 window.addEventListener('scroll', function() {
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
@@ -104,81 +132,13 @@ $(document).ready(function() {
 });
 
 
-var galPop = document.getElementById('galPop');
-var galData = [];
-var galIdx = 0;
-
-document.querySelectorAll('.gitem').forEach(function(item) {
-    galData.push({
-        img: item.getAttribute('data-gimg'),
-        title: item.getAttribute('data-gtitle'),
-        desc: item.getAttribute('data-gdesc')
-    });
-    item.addEventListener('click', function() {
-        openGal(parseInt(this.getAttribute('data-gi')));
-    });
-});
-
-function openGal(i) {
-    galIdx = i;
-    var g = galData[i];
-    document.getElementById('gpImg').setAttribute('src', g.img);
-    document.getElementById('gpTitle').textContent = g.title;
-    document.getElementById('gpDesc').innerHTML = g.desc;
-    galPop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-document.getElementById('gpClose').addEventListener('click', closeGal);
-galPop.addEventListener('click', function(e) {
-    if (e.target === this) closeGal();
-});
-
-function closeGal() {
-    galPop.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-document.getElementById('gpPrev').addEventListener('click', function() {
-    openGal((galIdx - 1 + galData.length) % galData.length);
-});
-document.getElementById('gpNext').addEventListener('click', function() {
-    openGal((galIdx + 1) % galData.length);
-});
-
 /*  ESC key closes everything */
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeSearch();
-        closeGal();
         if (typeof $.magnificPopup !== 'undefined') $.magnificPopup.close();
     }
 });
-
-
-new Swiper('.tesSwiper', {
-    slidesPerView: 1,
-    spaceBetween: 22,
-    loop: true,
-    autoplay: {
-        delay: 4000,
-        disableOnInteraction: false
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 2
-        },
-        1024: {
-            slidesPerView: 3
-        }
-    }
-});
-
-
 var calendarMonthFormatter = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         year: 'numeric',
@@ -273,23 +233,6 @@ document.getElementById('calendarTodayButton').addEventListener('click', functio
 
 renderCalendar();
 setInterval(renderCalendar, 60000);
-
-/* â”€â”€ NEWSLETTER â”€â”€ */
-document.getElementById('nlBtn').addEventListener('click', function() {
-    var email = document.getElementById('nlEmail').value;
-    if (email && email.includes('@')) {
-        var btn = this;
-        btn.textContent = 'âœ“ Subscribed!';
-        btn.style.background = '#4ade80';
-        btn.style.color = '#222';
-        document.getElementById('nlEmail').value = '';
-        setTimeout(function() {
-            btn.textContent = 'Subscribe';
-            btn.style.background = '';
-            btn.style.color = '';
-        }, 3000);
-    }
-});
 
 /*  NUMBER COUNTER ANIMATION*/
 var numAnimated = false;
