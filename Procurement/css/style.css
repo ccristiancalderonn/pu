@@ -1680,7 +1680,7 @@ footer {
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.14);
-  color: var(--secondary);
+  color: inherit;
 }
 .sovcat:hover,
 .sovcat.active {
